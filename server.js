@@ -42,9 +42,11 @@ function init() {
         switch (task) {
             case 'View Employess':
                 viewEmployees();
+                //done
                 break;
             case 'View Employees By Department':
                 viewEmployeeByDepartment();
+                //done
                 break;
             case 'ADD an Employee':
                 addEmployee();
@@ -54,6 +56,7 @@ function init() {
                 break;
             case 'Updated Employee Role':
                 updateEmployeeRole();
+                //done
                 break;
             case 'ADD a role':
                 addRole();
@@ -68,6 +71,92 @@ function init() {
                 //done
                 break;
         }
+    });
+}
+
+
+
+function viewEmployeeByDepartment() {
+    console.log('viewing employess by department\n');
+
+    var query =
+    `SELECT d.id, d.name, r.salary AS budget
+    FROM employee e
+    LEFT JOIN role r
+	ON e.role_id = r.id
+    LEFT JOIN department d
+    ON d.id = r.department_id
+    GROUP BY d.id, d.name`
+
+    db.query(query, function (err, res) {
+        if (err) throw err;
+
+        const deptChoices = res.map(data => ({
+            value: data.id,
+            name: data.name
+        }));
+
+        console.table(res);
+        console.log('department view succeeded\n');
+
+        promptDept(deptChoices);
+    });
+}
+
+function promptDept(deptChoices) {
+
+    inquirer
+    .prompt([
+        {
+            type: "list",
+            name: "departmentId",
+            message: "Which department would you choose?",
+            choices: deptChoices
+        }
+    ])
+    .then(function (answer) {
+        console.log('answer', answer.departmentId);
+
+        var query =
+        `SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department 
+        FROM employee e
+        JOIN role r
+        ON e.role_id = r.id
+        JOIN department d
+        ON d.id = r.department_id
+        WHERE d.id = ?`
+
+        db.query(query, answer.departmentId, function (err, res) {
+            if (err) throw err;
+
+            console.table('response', res);
+            console.log(res.affectedRows + 'employees are being viewed\n');
+
+            init();
+        });
+    });
+}
+
+function viewEmployees() {
+    console.log('viewing employees\n');
+
+    var query =
+    `SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, r.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager
+    FROM employee e
+    LEFT JOIN role r
+	ON e.role_id = r.id
+    LEFT JOIN department d
+    ON d.id = r.department_id
+    LEFT JOIN employee m
+	ON m.id = e.manager_id`
+
+    db.query(query, function (err, res) {
+        if (err) throw err;
+
+        console.table(res);
+        console.log('employess\n');
+
+        init();
     });
 }
 
