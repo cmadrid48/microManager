@@ -57,14 +57,82 @@ function init() {
                 break;
             case 'ADD a role':
                 addRole();
+                //done
                 break;
             case 'Update Employee Manager':
                 updateEmployeeManager();
+                //done
                 break;
             case 'END':
                 db.end();
+                //done
                 break;
         }
+    });
+}
+
+function addRole() {
+    var query = 
+    `SELECT d.id, d.name, r.salary AS budget
+    FROM employee e
+    JOIN role r
+    ON e.role_id = r.id
+    JOIN department d
+    ON d.id = r.department_id
+    GROUP BY d.id, d.name`
+
+    db.query(query, function (err, res) {
+        if (err) throw err;
+
+        const deptChoices = res.map(({ id, name }) => ({
+            value: id, name: `${id}${name}`
+        }));
+
+        console.table(res);
+        console.log('Deapartment Array');
+
+        promptAddRole(deptChoices);
+    });
+}
+
+function promptAddRole(deptChoices) {
+    inquirer
+    .prompt([
+    {
+        type: "input",
+        name: "roleTitle",
+        message: "Role title?"
+    },
+    {
+        type: "input",
+        name: "roleSalary",
+        message: "Role Salary"
+    },
+    {
+        type: "list",
+        name: "departmentId",
+        message: "Department?",
+        choices: deptChoices
+    },
+    ])
+    .then(function (answer) {
+
+    var query = `INSERT INTO role SET ?`
+
+    db.query(query, {
+        title: answer.title,
+        salary: answer.salary,
+        department_id: answer.departmentId
+    },
+        function (err, res) {
+        if (err) throw err;
+
+        console.table(res);
+        console.log("Role Inserted");
+
+        init();
+        });
+
     });
 }
 
@@ -128,3 +196,6 @@ function updateEmployeeManager() {
         });
     });
 }
+
+
+
