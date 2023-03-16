@@ -7,9 +7,9 @@ host: 'localhost',
 
     port: 3306,
 
-    user: 'root',
+    user: '<user>',
 
-    password: 'kv4fu5iiw7vzReff3r!@#$',
+    password: '<password>',
 
     database: 'employeesDB'
 });
