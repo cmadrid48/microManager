@@ -9,7 +9,7 @@ host: 'localhost',
 
     user: 'root',
 
-    password: 'kv4fu5iiw7vzReff3r!@#$',
+    password: 'password',
 
     database: 'employeesDB'
 });
@@ -25,7 +25,7 @@ connection.connect(function (err) {
 function init() {
 
     inquirer
-      .prompt({
+    .prompt({
         type: "list",
         name: "task",
         message: 'what does thou desire?',
