@@ -9,7 +9,7 @@ host: 'localhost',
 
     user: 'root',
 
-    password: 'password',
+    password: 'kv4fu5iiw7vzReff3r!@#$',
 
     database: 'employeesDB'
 });
@@ -46,7 +46,7 @@ function init() {
                 viewEmployees();
                 break;
 
-            case "View Employees By Department":
+            case "View Employees by Department":
                 viewEmployeeByDepartment();
                 break;
 
@@ -58,11 +58,11 @@ function init() {
                 removeEmployee();
                 break;
 
-            case "Updated Employee Role":
+            case "Update Employee Role":
                 updateEmployeeRole();
                 break;
 
-            case "ADD a role":
+            case "ADD a Role":
                 addRole();
                 break;
 
@@ -470,14 +470,14 @@ function updateEmployeeManager() {
                     const query = `SELECT id FROM employee WHERE first_name = ? AND last_name = ?`;
                     connection.query(query, [answer.manager.split(" ")[0], answer.manager.split(" ")[1]], (err, data) => {
                         if (err) throw err;
-                        const managerId = data[0].id;
-                        
+                        const managerId = data[0];
                         const query = `UPDATE employee SET manager_id = ? WHERE first_name = ? AND last_name = ?`;
                         connection.query(
                             query,
                             [managerId, firstName, lastName],
                             (err, data) => {
                                 if (err) throw err;
+                                console.table(data);
                                 console.log(`Successfully updated ${firstName} ${lastName}'s manager to ${answer.manager}.`);
 
                                 init();
