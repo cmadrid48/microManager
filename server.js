@@ -7,9 +7,9 @@ host: 'localhost',
 
     port: 3306,
 
-    user: 'root',
+    user: '<insert your user here>',
 
-    password: 'password',
+    password: '<insert password here>',
 
     database: 'employeesDB'
 });
@@ -456,7 +456,7 @@ function updateEmployeeManager() {
                 WHERE manager_id IS NULL 
                 AND first_name != '${firstName}' 
                 AND last_name != '${lastName}';`;
-                connection.query(query, (req, res) => {
+                connection.query(query, (req, data) => {
                 const managers = data.map((item) => `${item.first_name}${item.last_name}`);
 
                 inquirer
@@ -477,7 +477,7 @@ function updateEmployeeManager() {
                             [managerId, firstName, lastName],
                             (err, data) => {
                                 if (err) throw err;
-                                console.table(data);
+                                
                                 console.log(`Successfully updated ${firstName} ${lastName}'s manager to ${answer.manager}.`);
 
                                 init();
