@@ -1,5 +1,5 @@
 
-## Command-line Employee Management System✨
+## Command-line microManager✨
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 

@@ -9,7 +9,7 @@ host: 'localhost',
 
     user: 'root',
 
-    password: 'kv4fu5iiw7vzReff3r!@#$',
+    password: 'password',
 
     database: 'employeesDB'
 });
