@@ -4,10 +4,12 @@
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 This is a command-line application that allows users to manage employees, departments, and roles within a company. It is built using Node.js and utilizes the npm packages Inquirer, mysql2, and console.table.
-![alt](./Assets/randomfotos/Untitled3.png)
-![alt](./Assets/randomfotos/Untitled2.png)
-![alt](./Assets/randomfotos/Untitled1.png)
-![alt](./Assets/randomfotos/Untitled.png)
+
+![demogif](./Assets/randomfotos/DEMO.gif)
+![screenshot](./Assets/randomfotos/Untitled3.png)
+![screenshot](./Assets/randomfotos/Untitled2.png)
+![screenshot](./Assets/randomfotos/Untitled1.png)
+![screenshot](./Assets/randomfotos/Untitled.png)
 ## Installation✨
 Clone the repository to your local machine
 ```sh
@@ -21,7 +23,20 @@ Set up the database using the provided schema.sql and seed.sql files
 mysql -u <username> -p < schema.sql
 mysql -u <username> -p < seed.sql
 Note: You will need to have MySQL installed on your machine and have access to a MySQL server in order to set up the database.
+```
+>make sure to replace your password, and user on server.js!
+```sh
+const connection = mysql.createConnection({
+host: 'localhost',
 
+    port: 3306,
+
+    user: 'root',
+
+    password: '<PASSWORD PLACEHOLDER>',
+
+    database: 'employeesDB'
+});
 ```
 ## Usage
 > Make sure to  replace your credentials in "server.js" to access you mysql!
